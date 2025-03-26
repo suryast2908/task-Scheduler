@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #clock { font-size: 2em; margin: 20px; }
+        .task { padding: 10px; margin: 5px; border: 1px solid #ddd; }
+        .active { background-color: yellow; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Task Scheduler</h1>
+    <div id="clock"></div>
+    <div id="tasks"></div>
+    
+    <script>
+        const tasks = [
+            { time: "18:00", taska: "Placement Exam Practice" },
+            { time: "19:00", task: "Dinner Break" },
+            { time: "21:00", task: "Java Learning" },
+            { time: "23:00", task: "HTML & CSS Practice" }
+        ];
+        
+        function updateClock() {
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            document.getElementById("clock").innerText = "Current Time: " + currentTime;
+            updateTasks(currentTime);
+        }
+        
+        function updateTasks(currentTime) {
+            const taskContainer = document.getElementById("tasks");
+            taskContainer.innerHTML = "";
+            tasks.forEach(task => {
+                const taskElement = document.createElement("div");
+                taskElement.className = "task";
+                taskElement.innerText = `${task.time} - ${task.task}`;
+                if (task.time === currentTime) {
+                    taskElement.classList.add("active");
+                }
+                taskContainer.appendChild(taskElement);
+            });
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
